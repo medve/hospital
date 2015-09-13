@@ -1,4 +1,4 @@
-"""hospital URL Configuration
+"""appointment URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/1.8/topics/http/urls/
@@ -14,11 +14,13 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
 from django.conf.urls import include, url
-from django.contrib import admin
+from django.views.generic import TemplateView
 
-from appointment import urls as appointment_urls
+from .views import get_free_time_view, start_page
 
 urlpatterns = [
-    url(r'^', include(appointment_urls)),
-    url(r'^admin/', include(admin.site.urls)),
+    url(r'^$', start_page, {"template_name": "home.html"}, name="home"),
+    url(r'^thanks/$', TemplateView.as_view(template_name="thanks.html"),
+        name="thanks"),
+    url(r'^get_free_time/$', get_free_time_view, name="free_time"),
 ]
